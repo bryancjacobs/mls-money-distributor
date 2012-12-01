@@ -1,0 +1,178 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            var MULTIPILER = 100;
+
+            function calculate(amount, numberAccounts){
+                
+                var results = new Array();
+
+                var nonDecimal = Math.floor(amount / numberAccounts);
+
+                for(var i = 0; i < numberAccounts; i++){
+                    results[i] = nonDecimal * MULTIPILER;
+                }
+
+                amount *= MULTIPILER;
+
+                if(sum(results) == amount){
+                    return results;
+                }
+
+                var index = 0;
+
+                while(true){
+                    var result = results[index];
+
+                    result += 1;
+
+                    results[index] = result;
+
+                    if(sum(results) == amount){
+                        break;
+                    }
+
+                    index++;
+
+                    if(index == results.length){
+                        index = 0;
+                    }
+                }
+
+                // convert back to dollars
+                convertToDollars(results);
+
+                return results;
+            }
+
+            function sum(values){
+                var total = 0;
+                for(var i = 0; i < values.length; i++){
+                    total += values[i];
+                }
+
+                return total;
+            }
+
+            function convertToDollars(results){
+                for(var i = 0; i < results.length; i++){
+                    results[i] = results[i] / MULTIPILER;
+                }
+            }
+
+            function isValid(amount, accounts){
+                if(amount == "" || isNaN(amount)){
+                    alert("Amount: " + amount + " is not a valid value - (1.23, 4, 3.1, 1343234.42)")
+                    return false;
+                }
+
+                if(accounts == "" || isNaN(accounts)){
+                    alert("Accounts: " + accounts + "is not a valid value - (1,2,3,4,5,...")
+                    return false;
+                }
+
+                return true;
+            }
+
+            function handle(event){
+                var amountInput = document.getElementById("amountInput");
+
+                var numberAccounts = document.getElementById("numberInput");
+
+                var amount = amountInput.value;
+
+                var accounts = numberAccounts.value;
+
+                if(isValid(amount, accounts)){
+                    var results = calculate(parseFloat(amount), parseFloat(accounts));
+
+                    var displayDiv = document.getElementById("display");
+
+                    var htmlFormat = "";
+                    for(var i = 0; i < results.length; i++){
+                        htmlFormat += "$" + results[i].toFixed(2) + "<br/>";
+                    }
+
+                    displayDiv.innerHTML = htmlFormat;
+                }
+
+            }
+
+        </script>
+
+        <style type="text/css">
+            #container {
+                position: absolute;
+                height: 300px;
+                width: 400px;
+                margin: -250px 0 0 -200px;
+                top: 50%;
+                left: 50%;
+                background-color: #cccccc;
+                border-radius: 15px;
+                box-shadow: 10px 10px 5px #888888;
+
+            }
+
+            #inner {
+                width: 50%;
+                margin: 25px auto;
+            }
+
+            .floatRight{
+                padding-left: 49px;
+                padding-top: 20px;
+            }
+
+            .shadow{
+                box-shadow: 10px 10px 5px #888888;
+            }
+}
+        </style>
+    </head>
+    <body>
+        <div id="container">
+
+            <div id="inner">
+                <table>
+                    <tr>
+                        <td>
+                            <label for="amountInput">Amount:</label>
+
+                        </td>
+                        <td>
+                            <input id="amountInput" type="text" size="14" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="numberInput">Accounts:</label>
+
+                        </td>
+                        <td>
+                            <input id="numberInput" type="text" size="14"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td class="floatRight">
+                            <input type="submit" value="Calculate" onclick="handle(event)"/>        
+                        </td>
+                    </tr>
+                </table>
+
+
+                <div class="floatRight">
+
+                </div>
+
+                <div id="display">
+
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
