@@ -15,9 +15,8 @@
 
                 amount *= MULTIPILER;
 
-                if(sum(results) == amount){							
-					convertToDollars(results);					
-                    return results;
+                if(sum(results) == amount){																
+                    return convertToDollars(results);	
                 }
 
                 var index = 0;
@@ -40,9 +39,7 @@
                     }
                 }
 
-                convertToDollars(results);
-
-                return results;
+                return convertToDollars(results);
             }
 
             function sum(values){
@@ -58,6 +55,8 @@
                 for(var i = 0; i < results.length; i++){
                     results[i] = results[i] / MULTIPILER;
                 }
+				
+				return results;
             }
 
             function isValid(amount, accounts){
