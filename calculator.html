@@ -15,7 +15,8 @@
 
                 amount *= MULTIPILER;
 
-                if(sum(results) == amount){
+                if(sum(results) == amount){							
+					convertToDollars(results);					
                     return results;
                 }
 
@@ -39,7 +40,6 @@
                     }
                 }
 
-                // convert back to dollars
                 convertToDollars(results);
 
                 return results;
@@ -127,7 +127,6 @@
             .shadow{
                 box-shadow: 10px 10px 5px #888888;
             }
-}
         </style>
     </head>
     <body>
